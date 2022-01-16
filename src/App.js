@@ -12,14 +12,14 @@ function App() {
     return themes[theme] || themes.dark;
   }, [theme]);
 
-  function toogleTheme() {
+  function togleTheme() {
     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark');
   }
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <Layout onToogleTheme={toogleTheme} selectedTheme={theme} />
+      <Layout onTogleTheme={togleTheme} selectedTheme={theme} />
     </ThemeProvider>
   );
 };
