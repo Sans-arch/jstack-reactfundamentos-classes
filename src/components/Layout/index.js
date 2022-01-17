@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import PostsList from '../PostsList';
@@ -12,4 +13,8 @@ export default function Layout({ onToggleTheme, selectedTheme }) {
       <Footer onToggleTheme={onToggleTheme} selectedTheme={selectedTheme} />
     </>
   );
+}
+
+Layout.propTypes = {
+  selectedTheme: PropTypes.string.isRequired
 }

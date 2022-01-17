@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
@@ -7,6 +8,11 @@ import { Container } from './styles';
  * As `props` serão um objeto, todos os métodos ou atributos que você queira obter, terá que acessar através da notação ponto.
  */
 export default class Header extends React.Component {
+  static propTypes = {
+    selectedTheme: PropTypes.string.isRequired,
+    onToggleTheme: PropTypes.func.isRequired
+  }
+
   render() {
     const { onToggleTheme, selectedTheme } = this.props;
 
