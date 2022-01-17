@@ -1,8 +1,9 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import GlobalStyle from './styles/global';
 import Layout from './components/Layout';
+import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
 
 import themes from './styles/themes/';
 
@@ -24,43 +25,17 @@ import themes from './styles/themes/';
  * ele só mudara os atributos que forem repassados no objeto do argumento, os atributos que não sejam passados no argumento não sofrerão modificações no state.
  */
 class App extends React.Component {
-  // Versão clássica - sem dependência adicional do babel
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     theme: 'dark',
-  //     oiTudoBem: true
-  //   }
-  // }
-
-  // handleToggleTheme() {
-  //   this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }));
-  // }
-
-  // Versão alternativa - com dependência adicional do babel para fazer a transpilação do state
-  
-  state = {
-    theme: 'dark',
-    oiTudoBem: true
-  }
-  
-  handleToggleTheme = () => {
-    this.setState(prevState => ({ 
-      theme: prevState.theme === 'dark' ? 'light' : 'dark' 
-    }));
-  }
-
-  render() {
-    const { theme } = this.state;
-    
+  render() {    
     return (
-      <ThemeProvider theme={themes[theme] || themes.dark}>
-        <GlobalStyle />
-        <Layout 
-          onToggleTheme={this.handleToggleTheme} 
-          selectedTheme={theme} 
-        />
+      <ThemeProvider>
+        <ThemeContext.Consumer>
+          {({ theme }) => (
+            <StyledThemeProvider theme={themes[theme] || themes.dark}>
+              <GlobalStyle />
+              <Layout />
+            </StyledThemeProvider>
+          )}
+        </ThemeContext.Consumer>
       </ThemeProvider>
     )
   }
