@@ -4,6 +4,7 @@ import { Container } from './styles';
 
 /**
  * Em Class Components, as props são injetadas pelo `React.Component` dentro da instância da classe criada.
+ * As `props` serão um objeto, todos os métodos ou atributos que você queira obter, terá que acessar através da notação ponto.
  */
 export default class Header extends React.Component {
   render() {
