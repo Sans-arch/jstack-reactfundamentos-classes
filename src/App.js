@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from './styles/global';
@@ -24,18 +24,28 @@ import themes from './styles/themes/';
  * ele só mudara os atributos que forem repassados no objeto do argumento, os atributos que não sejam passados no argumento não sofrerão modificações no state.
  */
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  // Versão clássica - sem dependência adicional do babel
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      theme: 'dark',
-      oiTudoBem: true
-    }
+  //   this.state = {
+  //     theme: 'dark',
+  //     oiTudoBem: true
+  //   }
+  // }
 
-    this.handleToggleTheme = this.handleToggleTheme.bind(this);
+  // handleToggleTheme() {
+  //   this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }));
+  // }
+
+  // Versão alternativa - com dependência adicional do babel para fazer a transpilação do state
+  
+  state = {
+    theme: 'dark',
+    oiTudoBem: true
   }
-
-  handleToggleTheme() {
+  
+  handleToggleTheme = () => {
     this.setState(prevState => ({ 
       theme: prevState.theme === 'dark' ? 'light' : 'dark' 
     }));
