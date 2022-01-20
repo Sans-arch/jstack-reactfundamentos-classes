@@ -25,14 +25,68 @@ import themes from './styles/themes/';
  * ele só mudara os atributos que forem repassados no objeto do argumento, os atributos que não sejam passados no argumento não sofrerão modificações no state.
  */
 class App extends React.Component {
+  state = {
+    changed: false
+  }
+
+  // Executado uma vez montado o componente, executa apenas 1 única vez na primeira renderização.
+  componentDidMount() {
+    console.log('componentDidMount executed')
+  }
+
+  /*
+  Executado toda vez que o componente for atualizado, ou seja, toda vez que as props ou state forem alterados este método será chamado. 
+  Não será executado na primeira renderização.
+  É chamado depois do método render.
+  */
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate', {
+      currentState: this.state,
+      prevState,
+      // prevProps,
+    })
+  }
+
+  // Executado para pegarmos os erros dos componentes filhos
+  componentDidCatch(error, info) {
+    console.log('componentDidCatch', { error, info });
+  }
+
+  /* 
+    Precisa retornar um booleano, é executado antes do render,
+    React antes de alterar o estado mandara as informações para este método, você terá o valor atual do state antes do render, e terá acesso aos valores que substituirão os atuais,
+    possibilitando que você tome uma atitude antes disso ocorrer,
+    Você decide se o componente deve ser atualizado (renderize de novo) ou não através do retorno true ou false.
+  */ 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', {
+      currentState: this.state,
+      nextState,
+      // nextProps,
+    });
+
+    return true;
+  }
+
+  // Executado quando o componente for desmontado, quando for sair da tela, será executado antes dele sair da tela.
+  componentWillUnmount() {}
+
   render() {    
+    console.log('rendered')
+
     return (
       <ThemeProvider>
+        
+        
         <ThemeContext.Consumer>
-          {({ theme }) => (
+          {({ theme, handleToggleTheme }) => (
             <StyledThemeProvider theme={themes[theme] || themes.dark}>
               <GlobalStyle />
-              <Layout />
+              <button onClick={handleToggleTheme}>
+                Change state
+              </button>
+              {theme === 'dark' && <Layout />}
+              <br></br><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </StyledThemeProvider>
           )}
         </ThemeContext.Consumer>
