@@ -31,7 +31,7 @@ class App extends React.Component {
 
   // Executado uma vez montado o componente, executa apenas 1 única vez na primeira renderização.
   componentDidMount() {
-    console.log('componentDidMount executed')
+    // console.log('componentDidMount executed')
   }
 
   /*
@@ -40,16 +40,16 @@ class App extends React.Component {
   É chamado depois do método render.
   */
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate', {
-      currentState: this.state,
-      prevState,
-      // prevProps,
-    })
+    // console.log('componentDidUpdate', {
+    //   currentState: this.state,
+    //   prevState,
+    //   prevProps,
+    // })
   }
 
   // Executado para pegarmos os erros dos componentes filhos
   componentDidCatch(error, info) {
-    console.log('componentDidCatch', { error, info });
+    // console.log('componentDidCatch', { error, info });
   }
 
   /* 
@@ -59,11 +59,11 @@ class App extends React.Component {
     Você decide se o componente deve ser atualizado (renderize de novo) ou não através do retorno true ou false.
   */ 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('shouldComponentUpdate', {
-      currentState: this.state,
-      nextState,
-      // nextProps,
-    });
+    // console.log('shouldComponentUpdate', {
+    //   currentState: this.state,
+    //   nextState,
+    //   // nextProps,
+    // });
 
     return true;
   }
@@ -72,21 +72,15 @@ class App extends React.Component {
   componentWillUnmount() {}
 
   render() {    
-    console.log('rendered')
+    // console.log('rendered')
 
     return (
       <ThemeProvider>
-        
-        
         <ThemeContext.Consumer>
           {({ theme, handleToggleTheme }) => (
             <StyledThemeProvider theme={themes[theme] || themes.dark}>
               <GlobalStyle />
-              <button onClick={handleToggleTheme}>
-                Change state
-              </button>
-              {theme === 'dark' && <Layout />}
-              <br></br><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+              <Layout />
             </StyledThemeProvider>
           )}
         </ThemeContext.Consumer>
