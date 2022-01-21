@@ -4,28 +4,41 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 
 import { Container } from './styles';
 
-/**
- * Em Class Components, as props são injetadas pelo `React.Component` dentro da instância da classe criada.
- * As `props` serão um objeto, todos os métodos ou atributos que você queira obter, terá que acessar através da notação ponto.
- */
-// render props
-export default class Header extends Component {
+function HOC(ComponenteHeader) {
+  return class Component extends React.Component {
+    render() {
+      return (
+        <ThemeContext.Consumer>
+          {value => (
+            <ComponenteHeader {...value} />
+          )}
+        </ThemeContext.Consumer>
+
+      )
+    }
+  }
+}
+
+class Header extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.theme !== prevProps.theme) {
+      console.log('tema mudou');
+    }
+  }
+
   render() {
     return (
-      <ThemeContext.Consumer>
-        {({ handleToggleTheme, theme }) => (
-          <Container>
-            <h1>JStack's Blog</h1>
-            <button
-              type="button"
-              onClick={handleToggleTheme}
-            >
-              {theme === 'dark' ? '🌞' : '🌚'}
-            </button>
-          </Container>
-        )}
-      </ThemeContext.Consumer>
+      <Container>
+        <h1>JStack's Blog</h1>
+        <button
+          type="button"
+          onClick={this.props.handleToggleTheme}
+        >
+          {this.props.theme === 'dark' ? '🌞' : '🌚'}
+        </button>
+      </Container>
     )
   }
 }
- 
+
+export default HOC(Header);

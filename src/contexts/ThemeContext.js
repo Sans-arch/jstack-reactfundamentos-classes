@@ -15,7 +15,8 @@ export class ThemeProvider extends React.Component {
     }
 
     this.state = {
-      theme
+      theme,
+      batatinha: false
     };
   }
 
@@ -28,6 +29,8 @@ export class ThemeProvider extends React.Component {
   }
   
   render() {
+    console.log(this.state);
+
     return (
       <ThemeContext.Provider 
         value={{ 
@@ -35,6 +38,7 @@ export class ThemeProvider extends React.Component {
           handleToggleTheme: this.handleToggleTheme, 
         }}
       >
+        <button onClick={() => this.setState({ batatinha: 123 })}>123</button>
         {this.props.children}
       </ThemeContext.Provider>  
     )
